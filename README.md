@@ -5,7 +5,10 @@
 ---
 
 ## 🔎 Overview
-- Testbench Architecture  
+- **Block Diagram**
+  <img width="8648" height="6316" alt="image" src="https://github.com/user-attachments/assets/708600cd-fb31-4f35-bf9c-aef9e0403132" />
+
+- **Testbench Architecture**  
   ```
   📁 B-type Verification Environment
   ├── 🎯 DUT (cpu_with_data_memory_dut)
