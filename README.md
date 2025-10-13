@@ -5,8 +5,12 @@
 ---
 
 ## 🔎 Overview
-- **Block Diagram**
+- **DUT Block Diagram**
   <img width="8648" height="6316" alt="image" src="https://github.com/user-attachments/assets/708600cd-fb31-4f35-bf9c-aef9e0403132" />
+  
+- **Testbench Diagram**
+  <img width="6748" height="3384" alt="image" src="https://github.com/user-attachments/assets/4925d983-d07a-4c40-a10d-27b8e9605cc1" />
+
 
 - **Testbench Architecture**  
   ```
