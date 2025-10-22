@@ -134,7 +134,6 @@ endclass
 
 ### **🎲 Random Test Scenarios**
 1. **Basic Branch Testing**
-   #### **Transaction Class**
 ```systemverilog
 class b_type_transaction;
     rand logic [4:0] rs1, rs2;
@@ -153,7 +152,6 @@ endclass
    - 다양한 레지스터 값 분포 (zero, positive, negative, extreme)
 
 2. **Immediate Value Testing**
-#### **Transaction Class**
 ```systemverilog
 class b_type_transaction;
     constraint immediate_constraints {
