@@ -134,14 +134,65 @@ endclass
 
 ### **🎲 Random Test Scenarios**
 1. **Basic Branch Testing**
+   #### **Transaction Class**
+```systemverilog
+class b_type_transaction;
+    rand logic [4:0] rs1, rs2;
+    rand logic [2:0] funct3;
+    rand logic signed [12:0] imm;
+    rand logic signed [31:0] rs1_value, rs2_value;
+    
+    // Constraints for realistic testing
+    constraint valid_funct3 { ... }
+    constraint register_constraints { ... }
+    constraint immediate_constraints { ... }
+endclass
+```
+
    - 모든 funct3 값에 대한 taken/not-taken 조합
    - 다양한 레지스터 값 분포 (zero, positive, negative, extreme)
 
 2. **Immediate Value Testing**
+#### **Transaction Class**
+```systemverilog
+class b_type_transaction;
+    constraint immediate_constraints {
+        // Ensure word-aligned branch targets (imm[0] = 0)
+        imm[0] == 1'b0;
+        // Distribute immediate values for good coverage
+        imm dist {
+            //[-2048:-1024] := 1,    // Large negative (backward branch)
+            [-1023:-4]    := 1,    // Small negative (backward branch)
+            [4:1023]      := 5,    // Small positive (forward branch)
+            [1024:2047]   := 4     // Large positive (forward branch)
+        };
+    }
+endclass
+```
    - 분기 거리 변화 (-1023 ~ +2047)
    - 워드 정렬 제약 (imm[0] = 0)
 
 3. **Register Combination Testing**
+   ```systemverilog
+class b_type_transaction;
+    constraint register_value_constraints {
+        // Generate diverse register values for comprehensive testing
+        rs1_value dist {
+            32'h00000000 := 5,           // Zero
+            [32'h00000001:32'h000000FF] := 3,  // Small positive
+            [32'h80000000:32'hFFFFFFFF] := 3,  // Negative
+            [32'h7FFFFFFF:32'h7FFFFF00] := 3   // Large positive
+        };
+        
+        rs2_value dist {
+            32'h00000000 := 5,           // Zero
+            [32'h00000001:32'h000000FF] := 3,  // Small positive
+            [32'h80000000:32'hFFFFFFFF] := 3,  // Negative  
+            [32'h7FFFFFFF:32'h7FFFFF00] := 3   // Large positive
+        };
+    }
+endclass
+```
    - x0 레지스터 사용 시나리오
    - 일반 레지스터 간 비교
 
