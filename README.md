@@ -171,7 +171,7 @@ endclass
    - 워드 정렬 제약 (imm[0] = 0)
 
 3. **Register Combination Testing**
-   ```systemverilog
+```systemverilog
 class b_type_transaction;
     constraint register_value_constraints {
         // Generate diverse register values for comprehensive testing
