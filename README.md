@@ -136,15 +136,16 @@ endclass
 1. **Basic Branch Testing**
 ```systemverilog
 class b_type_transaction;
-    rand logic [4:0] rs1, rs2;
-    rand logic [2:0] funct3;
-    rand logic signed [12:0] imm;
-    rand logic signed [31:0] rs1_value, rs2_value;
+    constraint valid_funct3 {
+        funct3 inside {3'b000, 3'b001, 3'b100, 3'b101, 3'b110, 3'b111}; // BEQ, BNE, BLT, BGE, BLTU, BGEU
+    }
     
-    // Constraints for realistic testing
-    constraint valid_funct3 { ... }
-    constraint register_constraints { ... }
-    constraint immediate_constraints { ... }
+    constraint register_constraints {
+        // x0 저확률, 일반 레지스터 고확률
+        rs1 dist {0 := 1, [1:31] := 10};
+        rs2 dist {0 := 1, [1:31] := 10};
+        rs1 != rs2; // 의미있는 Test를 위해 rs1, rs2는 다르게
+    }
 endclass
 ```
 
